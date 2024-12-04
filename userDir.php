@@ -52,7 +52,7 @@
 
                     //jezeli katalog jest pusty
                     if (empty($files)) {
-                        echo "Twój katalog jest pusty. Możesz dodać pliki lub foldery.";
+                        echo "<h2>Twój katalog jest pusty. Możesz dodać pliki lub foldery.</h2>";
                     } else {
                         echo "<h2>Zawartość Twojego katalogu:</h2>";
                         echo "<ul>";
