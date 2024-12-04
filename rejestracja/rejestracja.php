@@ -62,9 +62,9 @@ $insert = mysqli_query($link, "INSERT INTO users (username, email, password, ava
 if ($insert) {
     //tworzenie katalogu macierzystego
     $base_dir = '../user_dirs/';
-    if (!is_dir($base_dir)) {
-        mkdir($base_dir, 0755, true);
-    }
+    //if (!is_dir($base_dir)) {
+    //    mkdir($base_dir, 0755, true);
+    //}
     $user_dir = $base_dir . $user;
     if (!mkdir($user_dir, 0755, true)) {
         echo "Nie udało się utworzyć katalogu macierzystego!";

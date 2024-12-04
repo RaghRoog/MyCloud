@@ -48,8 +48,9 @@ if (count($failed_attempts) == 3) {
 //weryfikacja hasla
 if ($rekord['password'] == $pass) {
     //logowanie udane
-    $base_dir = '../user_dirs/';
+    $base_dir = __DIR__ . '/../user_dirs/';
     $user_dir = $base_dir . $user;
+    $_SESSION['user_dir'] = $user_dir;
 
     if (!is_dir($user_dir)) {
         echo "Katalog użytkownika nie istnieje!";
@@ -81,10 +82,9 @@ if ($rekord['password'] == $pass) {
     $_SESSION['avatar'] = $rekord['avatar'];
     $_SESSION['user_id'] = $rekord['id'];
     $_SESSION['username'] = $rekord['username'];
-    $_SESSION['user_dir'] = $user_dir;
 
     mysqli_close($link);
-    header("location: ../index.php");
+    header("location: ../userDir.php");
     exit();
 } else {
     //logowanie nieudane
