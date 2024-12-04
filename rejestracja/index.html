@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    <title>Szymon Pomieciński</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/">
+
+    
+
+    <!-- Bootstrap core CSS -->
+<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="form-validation.css" rel="stylesheet">
+  </head>
+  <body class="text-center">
+    <div class="container" style="display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+      <main class="form-signin" style="max-width: 400px;">
+        <form method="post" action="rejestracja.php" enctype="multipart/form-data"> <!-- Dodaj enctype -->
+          <h1 class="h3 mb-3 fw-normal">Zarejestruj się.</h1>
+      
+          <div class="row g-3">
+              <div class="col-12">
+                  <label for="username" class="form-label">Nazwa użytkownika</label>
+                  <div class="input-group has-validation">
+                      <input name="user" type="text" class="form-control" id="username" placeholder="Nazwa użytkownika" required>
+                      <div class="invalid-feedback">
+                          Musisz podać nazwę użytkownika.
+                      </div>
+                  </div>
+              </div>
+      
+              <div class="col-12">
+                  <label for="email" class="form-label">Email</label>
+                  <input name="email" type="email" class="form-control" id="email" placeholder="Email">
+                  <div class="invalid-feedback">
+                      Musisz podać właściwy adres email.
+                  </div>
+              </div>
+      
+              <div class="col-12">
+                  <label for="password" class="form-label">Hasło</label>
+                  <input name="pass" type="password" class="form-control" id="password" placeholder="Hasło">
+                  <div class="invalid-feedback">
+                      Podaj prawidłowe hasło.
+                  </div>
+              </div>
+      
+              <div class="col-12">
+                  <label for="rep-password" class="form-label">Powtórz hasło</label>
+                  <input name="rep-pass" type="password" class="form-control" id="rep-password" placeholder="Powtóz hasło">
+                  <div class="invalid-feedback">
+                      Podaj prawidłowe hasło.
+                  </div>
+              </div>
+      
+              <div class="col-12">
+                  <label for="avatar" class="form-label">Avatar (opcjonalnie)</label>
+                  <input name="avatar" type="file" class="form-control" id="avatar" accept="image/*">
+              </div>
+          </div>
+      
+          <button class="w-100 btn btn-primary btn-lg" type="submit">Zarejestruj się</button>
+      
+          <a href="../logowanie/index.html">Przejdź do logowania</a>
+      </form>
+      </main>  
+    </div>   
+
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="form-validation.js"></script>
+  </body>
+</html>
