@@ -59,11 +59,22 @@
                         foreach ($files as $file) {
                             //jezeli jest to folder
                             if (is_dir($user_dir . '/' . $file)) {
-                                echo "<li><strong>Folder:</strong> <a href='podkatalog.php?dir=" . $user_dir . "/" . $file . "'>$file</a></li>";
+                                echo "<li>
+                                        <strong>Folder:</strong> 
+                                        <a href='podkatalog.php?dir=" . $user_dir . "/" . $file . "'>$file</a>
+                                        <a href='usun.php?path=" . $user_dir . "/" . $file . "' onclick='return confirm(\"Czy na pewno chcesz usunąć?\")'>
+                                            <i class='fas fa-trash-alt'></i>
+                                        </a>
+                                    </li>";
                             }
                             //jezeli jest to plik
                             else {
-                                echo "<li>Plik: $file</li>";
+                                echo "<li>
+                                        Plik: $file
+                                        <a href='usun.php?path=" . $user_dir . "/" . $file . "' onclick='return confirm(\"Czy na pewno chcesz usunąć?\")'>
+                                            <i class='fas fa-trash-alt'></i>
+                                        </a>
+                                    </li>";
                             }
                         }
                         echo "</ul>";
