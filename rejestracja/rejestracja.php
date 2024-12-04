@@ -51,8 +51,26 @@ if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] == UPLOAD_ERR_OK) {
     $avatar_url = 'https://raghroog.beep.pl/MyCloud/avatars/default-avatar.png'; 
 }
 
+//walidacja loginu
+if (!preg_match('/^[a-zA-Z0-9-_]+$/', $user)) {
+    echo "Nazwa użytkownika zawiera niedozwolone znaki!";
+    mysqli_close($link);
+    exit();
+}
+
 $insert = mysqli_query($link, "INSERT INTO users (username, email, password, avatar) VALUES ('$user', '$email', '$pass', '$avatar_url')");
 if ($insert) {
+    //tworzenie katalogu macierzystego
+    $base_dir = '../user_dirs/';
+    if (!is_dir($base_dir)) {
+        mkdir($base_dir, 0755, true);
+    }
+    $user_dir = $base_dir . $user;
+    if (!mkdir($user_dir, 0755, true)) {
+        echo "Nie udało się utworzyć katalogu macierzystego!";
+        mysqli_close($link);
+        exit();
+    }
     header("Location: ../logowanie/index.html");
     exit();
 } else {

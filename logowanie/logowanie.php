@@ -48,6 +48,14 @@ if (count($failed_attempts) == 3) {
 //weryfikacja hasla
 if ($rekord['password'] == $pass) {
     //logowanie udane
+    $base_dir = '../user_dirs/';
+    $user_dir = $base_dir . $user;
+
+    if (!is_dir($user_dir)) {
+        echo "Katalog użytkownika nie istnieje!";
+        mysqli_close($link);
+        exit();
+    }
     mysqli_query($link, "
         INSERT INTO goscieportalu (username, ipaddress, success) 
         VALUES ('$user', '{$_SERVER['REMOTE_ADDR']}', 1)
@@ -73,6 +81,7 @@ if ($rekord['password'] == $pass) {
     $_SESSION['avatar'] = $rekord['avatar'];
     $_SESSION['user_id'] = $rekord['id'];
     $_SESSION['username'] = $rekord['username'];
+    $_SESSION['user_dir'] = $user_dir;
 
     mysqli_close($link);
     header("location: ../index.php");
