@@ -63,13 +63,53 @@
                                 echo "<li><strong>Folder:</strong> <a href='#'>$file</a></li>";
                             }
                             else {
-                                echo "<li>
-                                        <strong>Plik:</strong> 
-                                        <a href='$relative_path' download>$file</a>
-                                        <a href='usun.php?path=" . $current_dir . "/" . $file . "' onclick='return confirm(\"Czy na pewno chcesz usunąć?\")'>
-                                            <i class='fas fa-trash-alt'></i>
-                                        </a>
-                                    </li>";
+                                if (preg_match('/\.(jpg|jpeg|png|gif)$/i', $file)) {//obrazy
+                                    echo "<li style='display: flex; align-items: center; gap: 10px; margin-bottom: 20px;'>
+                                            <strong>Plik:</strong>
+                                            <a href='$relative_path' download>$file</a>
+                                            <a href='usun.php?path=" . $current_dir . "/" . $file . "' onclick='return confirm(\"Czy na pewno chcesz usunąć?\")'>
+                                                <i class='fas fa-trash-alt'></i>
+                                            </a>
+                                            <a href='$relative_path' target='_blank'>
+                                                <img src='$relative_path' alt='$file' style='max-width: 100px; max-height: 100px; margin-left: 10px;'>
+                                            </a>
+                                          </li>";
+                                } 
+                                elseif (preg_match('/\.(mp4|webm|ogg)$/i', $file)) {//wideo
+                                    echo "<li style='display: flex; align-items: center; gap: 10px; margin-bottom: 20px;'>
+                                            <strong>Plik:</strong>
+                                            <a href='$relative_path' download>$file</a>
+                                            <a href='usun.php?path=" . $current_dir . "/" . $file . "' onclick='return confirm(\"Czy na pewno chcesz usunąć?\")'>
+                                                <i class='fas fa-trash-alt'></i>
+                                            </a>
+                                            <video controls style='max-width: 300px; display: block;'>
+                                                <source src='$relative_path' type='video/mp4'>
+                                                Twoja przeglądarka nie obsługuje wideo.
+                                            </video>
+                                          </li>";
+                                } 
+                                elseif (preg_match('/\.(mp3|wav|ogg)$/i', $file)) {//dzwiek
+                                    echo "<li style='display: flex; align-items: center; gap: 10px; margin-bottom: 20px;'>
+                                            <strong>Plik:</strong>
+                                            <a href='$relative_path' download>$file</a>
+                                            <a href='usun.php?path=" . $current_dir . "/" . $file . "' onclick='return confirm(\"Czy na pewno chcesz usunąć?\")'>
+                                                <i class='fas fa-trash-alt'></i>
+                                            </a>
+                                            <audio controls style='display: block;'>
+                                                <source src='$relative_path' type='audio/mpeg'>
+                                                Twoja przeglądarka nie obsługuje dźwięku.
+                                            </audio>
+                                          </li>";
+                                } 
+                                else {//reszta
+                                    echo "<li style='display: flex; align-items: center; gap: 10px; margin-bottom: 20px;'>
+                                            <strong>Plik:</strong>
+                                            <a href='$relative_path' download>$file</a>
+                                            <a href='usun.php?path=" . $current_dir . "/" . $file . "' onclick='return confirm(\"Czy na pewno chcesz usunąć?\")'>
+                                                <i class='fas fa-trash-alt'></i>
+                                            </a>
+                                          </li>";
+                                }
                             }
                         }
                         echo "</ul>";
