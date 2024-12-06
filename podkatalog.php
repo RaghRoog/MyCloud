@@ -57,12 +57,15 @@
                         echo "<h2>Zawartość Twojego katalogu:</h2>";
                         echo "<ul>";
                         foreach ($files as $file) {
-                            if (is_dir($current_dir . '/' . $file)) {
+                            $full_path = realpath($current_dir . '/' . $file);
+                            $relative_path = '/' . str_replace($_SERVER['DOCUMENT_ROOT'], '', $full_path);       
+                            if (is_dir($full_path)) {
                                 echo "<li><strong>Folder:</strong> <a href='#'>$file</a></li>";
                             }
                             else {
                                 echo "<li>
-                                        Plik: $file
+                                        <strong>Plik:</strong> 
+                                        <a href='$relative_path' download>$file</a>
                                         <a href='usun.php?path=" . $current_dir . "/" . $file . "' onclick='return confirm(\"Czy na pewno chcesz usunąć?\")'>
                                             <i class='fas fa-trash-alt'></i>
                                         </a>

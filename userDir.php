@@ -39,11 +39,10 @@
                         exit();
                     }
 
-                    // Jeżeli nie ma w URL zmiennej 'dir', ustaw katalog na główny katalog użytkownika
                     if (!isset($_GET['dir']) || empty($_GET['dir'])) {
                         $_SESSION['current_dir'] = $_SESSION['user_dir'];
                     } else {
-                        $_SESSION['current_dir'] = $_GET['dir']; // Ustawienie na wskazany katalog w URL
+                        $_SESSION['current_dir'] = $_GET['dir'];
                     }
 
                     $current_dir = $_SESSION['current_dir'];
@@ -67,8 +66,10 @@
                         echo "<h2>Zawartość Twojego katalogu:</h2>";
                         echo "<ul>";
                         foreach ($files as $file) {
+                            $full_path = realpath($current_dir . '/' . $file);
+                            $relative_path = '/' . str_replace($_SERVER['DOCUMENT_ROOT'], '', $full_path);                            
                             //jezeli jest to folder
-                            if (is_dir($current_dir . '/' . $file)) {
+                            if (is_dir($full_path)) {
                                 echo "<li>
                                         <strong>Folder:</strong> 
                                         <a href='podkatalog.php?dir=" . $current_dir . "/" . $file . "'>$file</a>
@@ -80,7 +81,8 @@
                             //jezeli jest to plik
                             else {
                                 echo "<li>
-                                        Plik: $file
+                                        <strong>Plik:</strong> 
+                                        <a href='$relative_path' download>$file</a>
                                         <a href='usun.php?path=" . $current_dir . "/" . $file . "' onclick='return confirm(\"Czy na pewno chcesz usunąć?\")'>
                                             <i class='fas fa-trash-alt'></i>
                                         </a>
