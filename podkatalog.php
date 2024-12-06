@@ -28,6 +28,9 @@
                 <a href="userDir.php" class="btn btn-secondary">
                     <i class="fas fa-level-up-alt"></i> Wyjdź
                 </a>
+                <a href="select.php" class="btn btn-primary">
+                    <i class="fas fa-cloud-upload-alt"></i> Prześlij plik
+                </a>
 
                 <?php
                     session_start();
@@ -37,6 +40,7 @@
                     }
 
                     $current_dir = isset($_GET['dir']) ? $_GET['dir'] : null;
+                    $_SESSION['current_dir'] = $current_dir;
 
                     if (!is_dir($current_dir)) {
                         echo "Błąd: Katalog użytkownika nie istnieje.";
@@ -57,7 +61,12 @@
                                 echo "<li><strong>Folder:</strong> <a href='#'>$file</a></li>";
                             }
                             else {
-                                echo "<li>Plik: $file</li>";
+                                echo "<li>
+                                        Plik: $file
+                                        <a href='usun.php?path=" . $current_dir . "/" . $file . "' onclick='return confirm(\"Czy na pewno chcesz usunąć?\")'>
+                                            <i class='fas fa-trash-alt'></i>
+                                        </a>
+                                    </li>";
                             }
                         }
                         echo "</ul>";

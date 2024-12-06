@@ -28,6 +28,9 @@
                 <a href="dodajPodkatalog.php" class="btn btn-primary">
                     <i class="fas fa-folder-plus"></i> Dodaj folder
                 </a>
+                <a href="select.php" class="btn btn-primary">
+                    <i class="fas fa-cloud-upload-alt"></i> Prześlij plik
+                </a>
 
                 <?php
                     session_start();
@@ -36,16 +39,23 @@
                         exit();
                     }
 
-                    $user_dir = $_SESSION['user_dir'];
+                    // Jeżeli nie ma w URL zmiennej 'dir', ustaw katalog na główny katalog użytkownika
+                    if (!isset($_GET['dir']) || empty($_GET['dir'])) {
+                        $_SESSION['current_dir'] = $_SESSION['user_dir'];
+                    } else {
+                        $_SESSION['current_dir'] = $_GET['dir']; // Ustawienie na wskazany katalog w URL
+                    }
+
+                    $current_dir = $_SESSION['current_dir'];
 
                     //sprawdzenie czy katalog uzytkownika istnieje
-                    if (!is_dir($user_dir)) {
+                    if (!is_dir($current_dir)) {
                         echo "Błąd: Katalog użytkownika nie istnieje.";
                         exit();
                     }
 
                     //pobranie listy plikow i folderow w katalogu
-                    $files = scandir($user_dir);
+                    $files = scandir($current_dir);
 
                     //usuniecie "." i ".." z listy bo sa to odniesienia do biezacego i nadrzednego katalogu
                     $files = array_diff($files, array('.', '..'));
@@ -58,11 +68,11 @@
                         echo "<ul>";
                         foreach ($files as $file) {
                             //jezeli jest to folder
-                            if (is_dir($user_dir . '/' . $file)) {
+                            if (is_dir($current_dir . '/' . $file)) {
                                 echo "<li>
                                         <strong>Folder:</strong> 
-                                        <a href='podkatalog.php?dir=" . $user_dir . "/" . $file . "'>$file</a>
-                                        <a href='usun.php?path=" . $user_dir . "/" . $file . "' onclick='return confirm(\"Czy na pewno chcesz usunąć?\")'>
+                                        <a href='podkatalog.php?dir=" . $current_dir . "/" . $file . "'>$file</a>
+                                        <a href='usun.php?path=" . $current_dir . "/" . $file . "' onclick='return confirm(\"Czy na pewno chcesz usunąć?\")'>
                                             <i class='fas fa-trash-alt'></i>
                                         </a>
                                     </li>";
@@ -71,7 +81,7 @@
                             else {
                                 echo "<li>
                                         Plik: $file
-                                        <a href='usun.php?path=" . $user_dir . "/" . $file . "' onclick='return confirm(\"Czy na pewno chcesz usunąć?\")'>
+                                        <a href='usun.php?path=" . $current_dir . "/" . $file . "' onclick='return confirm(\"Czy na pewno chcesz usunąć?\")'>
                                             <i class='fas fa-trash-alt'></i>
                                         </a>
                                     </li>";

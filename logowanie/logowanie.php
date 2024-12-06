@@ -51,6 +51,7 @@ if ($rekord['password'] == $pass) {
     $base_dir = __DIR__ . '/../user_dirs/';
     $user_dir = $base_dir . $user;
     $_SESSION['user_dir'] = $user_dir;
+    $_SESSION['current_dir'] = $user_dir;
 
     if (!is_dir($user_dir)) {
         echo "Katalog użytkownika nie istnieje!";
